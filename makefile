@@ -1,8 +1,8 @@
 CXX = g++ #Compiler
 CXXFLAGS = -std=c++17 -Wall -Wextra # Compiler flags
 LDFLAGS = -lX11 -lGL -lpng -lpthread -lstdc++fs  # Libraries to link
-TARGET = demo # Target executable file
-SRCS = demo.cpp # Source files
+TARGET = main # Target executable file
+SRCS = main.cpp # Source files
 
 OBJS = $(SRCS:.cpp=.o) # Object files (automatically generated from source files)
 
