@@ -9,7 +9,7 @@ workspace(GameName)
 	staticruntime("off")
 	defines { "SPACE_BLASTER" }
 	
-	targetname("x%{prj.name}")
+	targetname("%{prj.name}")
 	targetdir(".out")
 	objdir(".out/obj")
 	
@@ -60,6 +60,6 @@ project(GameName)
 		"Space-Blaster/res/**",
 	})
 	includedirs({
-		"Core/olcPixelGameEngine/olcPixelGameEngine.h",
-		"Space-Blaster/includes/**",
+		"Core/olcPixelGameEngine",
+		"Space-Blaster/includes",
 	})
