@@ -1,5 +1,19 @@
-**.exe
-**.class
-**.out
-**.o
-**demo
+.vscode
+build
+
+# Directories
+.vs/
+.out/
+Binaries/
+
+# Files
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
+*.sln
+**/*.make
+*.log
+Makefile
+
+# Exclude
+!Vendor/Binaries
