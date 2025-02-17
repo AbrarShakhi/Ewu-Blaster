@@ -3,7 +3,7 @@ local GameName = "Space-Blaster"
 workspace(GameName)
 	architecture("x64")
 	configurations({ "Debug", "Release", "Dist" })
-	startproject("Space-Blaster")
+	startproject(GameName)
 	language("C++")
 	cppdialect("C++20")
 	staticruntime("off")
@@ -50,14 +50,11 @@ workspace(GameName)
 	filter { "system:macosx" }
 		defines { "MACOSX" }
 	filter {}
-	
+
 
 project(GameName)
 	files({
-		"Core/olcPixelGameEngine/olcPixelGameEngine.h",
-		"Space-Blaster/includes/**",
-		"Space-Blaster/src/**",
-		"Space-Blaster/res/**",
+		"Space-Blaster/src/**.cpp",
 	})
 	includedirs({
 		"Core/olcPixelGameEngine",
