@@ -3,35 +3,24 @@
 #ifndef SPACE_BLASTER_H
 #define SPACE_BLASTER_H
 
+#include <array>
+
 #include "olcPixelGameEngine.h"
 
-
 class SpaceBlaster : public olc::PixelGameEngine {
+   private:
+	olc::Sprite* playerShipSprite = nullptr;
+	olc::Decal* playerShip = nullptr;
+
+	std::array<olc::vi2d*, 100> bgStars = {nullptr};
+
+	olc::vf2d* playerPos = nullptr;
+
    public:
 	SpaceBlaster();
-	~SpaceBlaster() = default;
-
-   private:
-	struct sSpaceObject {
-		float x = 0.0f;
-		float y = 0.0f;
-		float vx = 0.0f;
-		float vy = 0.0f;
-		float angle = 0.0f;
-		bool bDead = false;
-	};
-
-	std::list<sSpaceObject> listProjectiles;
-	std::list<sSpaceObject> listEnemies;
-	sSpaceObject player;
-	float fPlayerThrust = 100.0f;
-	float fPlayerAngle = 0.0f;
-	float fPlayerAngularSpeed = 5.0f;
-	int nScore = 0;
-
-
-   public:
+	~SpaceBlaster();
 	bool OnUserCreate() override;
+	bool HandleUserEvent();
 
 	bool OnUserUpdate(float fElapsedTime) override;
 };

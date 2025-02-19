@@ -1,110 +1,64 @@
 #include "spaceblaster.h"
 
-#include <cmath>
-#include <list>
+#include <stdio.h>
+#include <stdlib.h>
 
-SpaceBlaster::SpaceBlaster() { sAppName = "Space Blaster"; }
+#include <ctime>
+#include <random>
+
+SpaceBlaster::SpaceBlaster() {
+	sAppName = "Space Blaster";
+
+	srand(time(nullptr));
+}
+SpaceBlaster::~SpaceBlaster() {
+	for (size_t i = 0; i < bgStars.size(); i++) {
+		delete bgStars[i];
+	}
+	delete playerShipSprite;
+	delete playerShip;
+}
 
 bool SpaceBlaster::OnUserCreate() {
-	player.x = ScreenWidth() / 2.0f;
-	player.y = ScreenHeight() / 2.0f;
+	playerShipSprite = new olc::Sprite("Space-Blaster/res/ship.png");
+	playerShip = new olc::Decal(playerShipSprite);
 
+	for (size_t i = 0; i < bgStars.size(); i++) {
+		bgStars[i] = new olc::vi2d(rand() % GetScreenSize().x,
+		                           rand() % GetScreenSize().y);
+	}
+
+	playerPos =
+	    new olc::vf2d(GetScreenSize().x / 2.0f, GetScreenSize().y / 2.0f);
 	return true;
 }
 
+bool SpaceBlaster::HandleUserEvent() {
+	if (GetKey(olc::RIGHT).bHeld) {
+		playerPos->x = playerPos->x + 0.06f;
+	} else if (GetKey(olc::LEFT).bHeld) {
+		playerPos->x = playerPos->x - 0.06f;
+	} else if (GetKey(olc::UP).bHeld) {
+		playerPos->y = playerPos->y - 0.06f;
+	} else if (GetKey(olc::DOWN).bHeld) {
+		playerPos->y = playerPos->y + 0.06f;
+	}
+	return true;
+}
+
+
 bool SpaceBlaster::OnUserUpdate(float fElapsedTime) {
+	if (!HandleUserEvent())
+		return false;
+
 	Clear(olc::BLACK);
-
-
-	if (GetKey(olc::Key::LEFT).bHeld)
-		fPlayerAngle -= fPlayerAngularSpeed * fElapsedTime;
-	if (GetKey(olc::Key::RIGHT).bHeld)
-		fPlayerAngle += fPlayerAngularSpeed * fElapsedTime;
-
-	if (GetKey(olc::Key::UP).bHeld) {
-		player.vx += cos(fPlayerAngle) * fPlayerThrust * fElapsedTime;
-		player.vy += sin(fPlayerAngle) * fPlayerThrust * fElapsedTime;
-	}
-
-	player.vx *= 0.99f;
-	player.vy *= 0.99f;
-
-	player.x += player.vx * fElapsedTime;
-	player.y += player.vy * fElapsedTime;
-
-	if (player.x < 0)
-		player.x = ScreenWidth();
-	if (player.x >= ScreenWidth())
-		player.x = 0;
-	if (player.y < 0)
-		player.y = ScreenHeight();
-	if (player.y >= ScreenHeight())
-		player.y = 0;
-
-
-	if (GetKey(olc::Key::SPACE).bPressed) {
-		sSpaceObject projectile;
-		projectile.x = player.x;
-		projectile.y = player.y;
-		projectile.vx = cos(fPlayerAngle) * 200.0f + player.vx;
-		projectile.vy = sin(fPlayerAngle) * 200.0f + player.vy;
-		listProjectiles.push_back(projectile);
-	}
-
-	int nSize = 10;
-	for (int i = 0; i < 4; i++) {
-		float angle = fPlayerAngle + float(i) / 4.0f * 2.0f * 3.14159f;
-		float x = player.x + cos(angle) * nSize;
-		float y = player.y + sin(angle) * nSize;
-		Draw(x, y, olc::YELLOW);
-	}
-
-	for (auto &p : listProjectiles) {
-		p.x += p.vx * fElapsedTime;
-		p.y += p.vy * fElapsedTime;
-
-		Draw(p.x, p.y, olc::WHITE);
-
-		if (p.x < 0 || p.x >= ScreenWidth() || p.y < 0 || p.y >= ScreenHeight())
-			p.bDead = true;
-	}
-
-	listProjectiles.remove_if([](const sSpaceObject &p) { return p.bDead; });
-
-
-	if (rand() % 100 == 0) {
-		sSpaceObject enemy;
-		enemy.x = (float)(rand() % ScreenWidth());
-		enemy.y = 0;
-		enemy.vx = 0;
-		enemy.vy = (float)(rand() % 50 + 20);
-		listEnemies.push_back(enemy);
-	}
-
-	for (auto &e : listEnemies) {
-		e.x += e.vx * fElapsedTime;
-		e.y += e.vy * fElapsedTime;
-
-		Draw(e.x, e.y, olc::RED);
-
-		if (e.x < 0 || e.x >= ScreenWidth() || e.y < 0 || e.y >= ScreenHeight())
-			e.bDead = true;
-	}
-
-	listEnemies.remove_if([](const sSpaceObject &e) { return e.bDead; });
-
-	for (auto &p : listProjectiles) {
-		for (auto &e : listEnemies) {
-			if (fabs(p.x - e.x) < 5 && fabs(p.y - e.y) < 5) {
-				p.bDead = true;
-				e.bDead = true;
-				nScore += 10;
-			}
-		}
+	for (size_t i = 0; i < bgStars.size(); i++) {
+		Draw(*bgStars[i], olc::WHITE);
 	}
 
 
-	DrawString(10, 10, "Score: " + std::to_string(nScore), olc::WHITE);
+	olc::vf2d scale({.2F, .2F});
+	DrawDecal(*playerPos, playerShip, scale);
 
 	return true;
 }

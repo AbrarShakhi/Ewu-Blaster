@@ -86,3 +86,9 @@ Go to `Scripts` folder and run `Setup-Winddows.bat`
 If compilation is succesfull, you can see a `Space-Blaster.sln` file, open that in visual studio,
 Now, you can run the game visual studio,
 If you want to see .exe file its in `.out` folder
+
+## Credits
+
+1. olc Pixel Game Engine by [javidx9](https://www.youtube.com/javidx9) youtube.
+1. Icons
+   1. <a href="https://www.flaticon.com/free-icons/spaceship" title="spaceship icons">Spaceship icons created by Freepik - Flaticon</a>
