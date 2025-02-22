@@ -35,21 +35,33 @@ bool SpaceBlaster::OnUserCreate() {
 
 bool SpaceBlaster::HandleUserEvent() {
 	if (GetKey(olc::RIGHT).bHeld) {
-		playerPos->x = playerPos->x + 0.06f;
-	} else if (GetKey(olc::LEFT).bHeld) {
-		playerPos->x = playerPos->x - 0.06f;
-	} else if (GetKey(olc::UP).bHeld) {
-		playerPos->y = playerPos->y - 0.06f;
-	} else if (GetKey(olc::DOWN).bHeld) {
-		playerPos->y = playerPos->y + 0.06f;
+		if (playerPos->x <= GetScreenSize().x) {
+			playerPos->x = playerPos->x + 0.03f;
+		}
+	}
+	if (GetKey(olc::LEFT).bHeld) {
+		if (playerPos->x >= 0) {
+			playerPos->x = playerPos->x - 0.03f;
+		}
+	}
+	if (GetKey(olc::UP).bHeld) {
+		if (playerPos->y >= 0) {
+			playerPos->y = playerPos->y - 0.03f;
+		}
+	}
+	if (GetKey(olc::DOWN).bHeld) {
+		if (playerPos->y <= GetScreenSize().y) {
+			playerPos->y = playerPos->y + 0.03f;
+		}
 	}
 	return true;
 }
 
 
 bool SpaceBlaster::OnUserUpdate(float fElapsedTime) {
-	if (!HandleUserEvent())
+	if (!HandleUserEvent()) {
 		return false;
+	}
 
 	Clear(olc::BLACK);
 	for (size_t i = 0; i < bgStars.size(); i++) {
