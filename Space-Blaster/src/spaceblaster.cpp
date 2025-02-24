@@ -1,6 +1,5 @@
 #include "spaceblaster.h"
 
-#include <stdio.h>
 #include <stdlib.h>
 
 #include <ctime>
@@ -15,51 +14,55 @@ SpaceBlaster::~SpaceBlaster() {
 	for (size_t i = 0; i < bgStars.size(); i++) {
 		delete bgStars[i];
 	}
-	delete playerShipSprite;
-	delete playerShip;
+	if (player)
+		delete player;
 }
 
 bool SpaceBlaster::OnUserCreate() {
-	playerShipSprite = new olc::Sprite("Space-Blaster/res/ship.png");
-	playerShip = new olc::Decal(playerShipSprite);
-
 	for (size_t i = 0; i < bgStars.size(); i++) {
 		bgStars[i] = new olc::vi2d(rand() % GetScreenSize().x,
 		                           rand() % GetScreenSize().y);
 	}
 
-	playerPos =
-	    new olc::vf2d(GetScreenSize().x / 2.0f, GetScreenSize().y / 2.0f);
+	player = new Entity("Space-Blaster/res/ship.png");
+	player->scale = {0.2, 0.2};
+
+	float X, Y;
+	X = (GetScreenSize().x / 2.0f) - (player->getWidth() / 2.0f);
+	Y = (GetScreenSize().y) - (player->getHeight() + 10);
+
+	player->position = {X, Y};
+
 	return true;
 }
 
-bool SpaceBlaster::HandleUserEvent() {
-	if (GetKey(olc::RIGHT).bHeld) {
-		if (playerPos->x <= GetScreenSize().x) {
-			playerPos->x = playerPos->x + 0.03f;
+bool SpaceBlaster::HandleUserEvent(float deltaTime) {
+	if (GetKey(olc::RIGHT).bHeld || GetKey(olc::D).bHeld) {
+		if (player->position.x < GetScreenSize().x - player->getWidth()) {
+			player->position.x += (200 * deltaTime);
 		}
 	}
-	if (GetKey(olc::LEFT).bHeld) {
-		if (playerPos->x >= 0) {
-			playerPos->x = playerPos->x - 0.03f;
+	if (GetKey(olc::LEFT).bHeld || GetKey(olc::A).bHeld) {
+		if (player->position.x > 0) {
+			player->position.x -= (200 * deltaTime);
 		}
 	}
-	if (GetKey(olc::UP).bHeld) {
-		if (playerPos->y >= 0) {
-			playerPos->y = playerPos->y - 0.03f;
+	if (GetKey(olc::UP).bHeld || GetKey(olc::W).bHeld) {
+		if (player->position.y > 0) {
+			player->position.y -= (200 * deltaTime);
 		}
 	}
-	if (GetKey(olc::DOWN).bHeld) {
-		if (playerPos->y <= GetScreenSize().y) {
-			playerPos->y = playerPos->y + 0.03f;
+	if (GetKey(olc::DOWN).bHeld || GetKey(olc::S).bHeld) {
+		if (player->position.y < GetScreenSize().y - player->getHeight()) {
+			player->position.y += (200 * deltaTime);
 		}
 	}
 	return true;
 }
 
 
-bool SpaceBlaster::OnUserUpdate(float fElapsedTime) {
-	if (!HandleUserEvent()) {
+bool SpaceBlaster::OnUserUpdate(float deltaTime) {
+	if (!HandleUserEvent(deltaTime)) {
 		return false;
 	}
 
@@ -68,9 +71,6 @@ bool SpaceBlaster::OnUserUpdate(float fElapsedTime) {
 		Draw(*bgStars[i], olc::WHITE);
 	}
 
-
-	olc::vf2d scale({.2F, .2F});
-	DrawDecal(*playerPos, playerShip, scale);
-
+	player->draw(this);
 	return true;
 }

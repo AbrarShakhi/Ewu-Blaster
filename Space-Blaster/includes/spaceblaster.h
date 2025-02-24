@@ -5,24 +5,21 @@
 
 #include <array>
 
+#include "entity.h"
 #include "olcPixelGameEngine.h"
 
 class SpaceBlaster : public olc::PixelGameEngine {
    private:
-	olc::Sprite* playerShipSprite = nullptr;
-	olc::Decal* playerShip = nullptr;
-
-	std::array<olc::vi2d*, 100> bgStars = {nullptr};
-
-	olc::vf2d* playerPos = nullptr;
+	std::array<olc::vi2d *, 100> bgStars = {nullptr};
+	Entity *player = nullptr;
 
    public:
 	SpaceBlaster();
 	~SpaceBlaster();
 	bool OnUserCreate() override;
-	bool HandleUserEvent();
+	bool HandleUserEvent(float deltaTime);
 
-	bool OnUserUpdate(float fElapsedTime) override;
+	bool OnUserUpdate(float deltaTime) override;
 };
 
 #endif  // !SPACE_BLASTER_H
