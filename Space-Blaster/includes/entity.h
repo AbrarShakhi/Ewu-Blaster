@@ -5,6 +5,7 @@ class Entity {
    public:
 	olc::vf2d position;
 	olc::vf2d scale;
+	olc::vf2d valocity;
 
    private:
 	const char *imageFile = nullptr;

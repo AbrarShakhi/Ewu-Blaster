@@ -92,3 +92,4 @@ If you want to see .exe file its in `.out` folder
 1. olc Pixel Game Engine by [javidx9](https://www.youtube.com/javidx9) youtube.
 1. Icons
    1. <a href="https://www.flaticon.com/free-icons/spaceship" title="spaceship icons">Spaceship icons created by Freepik - Flaticon</a>
+   2. <a href="https://www.flaticon.com/free-icons/asteroid" title="asteroid icons">Asteroid icons created by wanicon - Flaticon</a>

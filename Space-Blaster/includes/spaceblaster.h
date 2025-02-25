@@ -4,14 +4,18 @@
 #define SPACE_BLASTER_H
 
 #include <array>
+#include <list>
 
 #include "entity.h"
 #include "olcPixelGameEngine.h"
+
 
 class SpaceBlaster : public olc::PixelGameEngine {
    private:
 	std::array<olc::vi2d *, 100> bgStars = {nullptr};
 	Entity *player = nullptr;
+	std::list<Entity *> enemies;
+	float tick;
 
    public:
 	SpaceBlaster();
