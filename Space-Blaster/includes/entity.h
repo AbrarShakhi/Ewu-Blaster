@@ -6,6 +6,7 @@ class Entity {
 	olc::vf2d position;
 	olc::vf2d scale;
 	olc::vf2d valocity;
+	bool visiable;
 
    private:
 	const char *imageFile = nullptr;
@@ -21,6 +22,7 @@ class Entity {
 
 	void draw(olc::PixelGameEngine *game);
 	bool collidesWith(const Entity &other) const;
+	void moveByValocity(float deltaTime);
 
    private:
 };

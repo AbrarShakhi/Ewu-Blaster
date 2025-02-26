@@ -6,7 +6,9 @@ Entity::Entity(const char* p_imageFile)
       position(0, 0),
       scale(1, 1),
       sprite(p_imageFile),
-      decal(&sprite) {}
+      decal(&sprite) {
+	visiable = true;
+}
 
 float Entity::getWidth() const { return sprite.width * scale.x; }
 float Entity::getHeight() const { return sprite.height * scale.y; }
@@ -14,6 +16,12 @@ float Entity::getHeight() const { return sprite.height * scale.y; }
 
 void Entity::draw(olc::PixelGameEngine* game) {
 	game->DrawDecal(position, &decal, scale);
+}
+
+
+void Entity::moveByValocity(float deltaTime) {
+	this->position.x += this->valocity.x * deltaTime;
+	this->position.y += this->valocity.y * deltaTime;
 }
 
 bool Entity::collidesWith(const Entity& other) const {

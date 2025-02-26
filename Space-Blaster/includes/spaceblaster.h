@@ -16,6 +16,8 @@ class SpaceBlaster : public olc::PixelGameEngine {
 	float enemiesRate;
 	float fireRate;
 
+	size_t score;
+
    public:
 	SpaceBlaster();
 	~SpaceBlaster() = default;

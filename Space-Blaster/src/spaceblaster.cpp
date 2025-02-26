@@ -1,13 +1,10 @@
 #include "spaceblaster.h"
 
-#include <cstdlib>
-#include <ctime>
-#include <random>
+#include "random.h"
 
 SpaceBlaster::SpaceBlaster() {
 	sAppName = "Space Blaster";
-
-	srand(time(nullptr));
+	score = 0;
 }
 
 bool SpaceBlaster::OnUserCreate() {
@@ -15,8 +12,8 @@ bool SpaceBlaster::OnUserCreate() {
 	fireRate = 0;
 
 	for (size_t i = 0; i < bgStars.size(); i++) {
-		bgStars[i] = new olc::vi2d(rand() % GetScreenSize().x,
-		                           rand() % GetScreenSize().y);
+		bgStars[i] = new olc::vi2d(randfloat(0, GetScreenSize().x),
+		                           randint(0, GetScreenSize().y));
 	}
 
 	player = new Entity("Space-Blaster/res/ship.png");
@@ -38,6 +35,7 @@ bool SpaceBlaster::OnUserDestroy() {
 	if (player) {
 		delete player;
 	}
+	std::cout << "Score is: " << score << '\n';
 	return true;
 }
 
@@ -80,49 +78,63 @@ bool SpaceBlaster::HandleUserEvent(float deltaTime) {
 }
 
 bool SpaceBlaster::UpdateGameLogic(float deltaTime) {
-	enemiesRate += 10 * deltaTime;
+	enemiesRate += 50 * deltaTime;
 	if (enemiesRate > 10 || enemiesRate <= 0) {
-		auto astero = new Entity("Space-Blaster/res/asteroid1.png");
-		astero->position = {
-		    float(rand() % (GetScreenSize().x - int(astero->getHeight()))),
-		    -astero->getHeight()};
+		Entity* astero = new Entity("Space-Blaster/res/asteroid1.png");
 		astero->scale = {0.2, 0.2};
 		astero->valocity = {0, 25};
+		astero->position = {
+		    randfloat(0, (GetScreenSize().x - astero->getHeight())),
+		    -astero->getHeight()};
 		enemies.emplace_back(astero);
 		enemiesRate = 0;
 	}
 
-	fireRate += 25 * deltaTime;
-	if (fireRate > 10 || fireRate <= 0) {
-		auto bullet = new Entity("Space-Blaster/res/asteroid1.png");
-		bullet->position = {float(player->position.x),
-		                    float(player->position.y)};
-		bullet->scale = {0.05, 0.05};
-		bullet->valocity = {0, 50};
-		enemies.emplace_back(bullet);
-		fireRate = 0;
-	}
-
 	while (!enemies.empty() &&
 	       enemies.front()->position.y > GetScreenSize().y) {
-		auto astero = enemies.front();
+		Entity* astero = enemies.front();
 		enemies.pop_front();
 		delete astero;
 	}
 
+	for (const auto& enemy : enemies) {
+		if (enemy->visiable && enemy->collidesWith(*player)) {
+			return false;
+		}
+		enemy->moveByValocity(deltaTime);
+	}
+
+	fireRate += 50 * deltaTime;
+	if (fireRate > 10 || fireRate <= 0) {
+		Entity* bullet = new Entity("Space-Blaster/res/asteroid1.png");
+		bullet->scale = {0.03, 0.03};
+		bullet->valocity = {0, -200};
+
+		bullet->position = {player->position.x + (player->getWidth() / 2) -
+		                        (bullet->getWidth() / 2),
+		                    player->position.y};
+
+		bullets.emplace_back(bullet);
+		fireRate = 0;
+	}
+
 	while (!bullets.empty() &&
 	       bullets.front()->position.y + bullets.front()->getHeight() <= 0) {
-		auto b = bullets.front();
+		Entity* b = bullets.front();
 		bullets.pop_front();
 		delete b;
 	}
-
-	for (auto enemy : enemies) {
-		if (player->collidesWith(*enemy)) {
-			return false;
+	for (auto&& bullet : bullets) {
+		for (auto&& enemy : enemies) {
+			if (bullet->visiable && enemy->visiable &&
+			    bullet->collidesWith(*enemy)) {
+				bullet->visiable = false;
+				enemy->visiable = false;
+				score++;
+				break;
+			}
 		}
-		enemy->position.x += enemy->valocity.x * deltaTime;
-		enemy->position.y += enemy->valocity.y * deltaTime;
+		bullet->moveByValocity(deltaTime);
 	}
 
 	return true;
@@ -134,8 +146,18 @@ void SpaceBlaster::RenderScreen() {
 		Draw(*bgStars[i], olc::WHITE);
 	}
 
-	for (auto enemy : enemies) {
-		enemy->draw(this);
+	for (const auto& enemy : enemies) {
+		if (enemy->visiable) {
+			enemy->draw(this);
+		}
+	}
+	for (const auto& bullet : bullets) {
+		if (bullet->visiable) {
+			bullet->draw(this);
+		}
 	}
 	player->draw(this);
+	std::stringstream strScore;
+	strScore << score;
+	DrawString({0, 0}, strScore.str());
 }
