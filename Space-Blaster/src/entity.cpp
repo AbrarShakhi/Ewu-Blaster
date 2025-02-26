@@ -15,3 +15,20 @@ float Entity::getHeight() const { return sprite.height * scale.y; }
 void Entity::draw(olc::PixelGameEngine* game) {
 	game->DrawDecal(position, &decal, scale);
 }
+
+bool Entity::collidesWith(const Entity& other) const {
+	if (this->position.x + this->getWidth() <= other.position.x) {
+		return false;
+	}
+	if (other.position.x + other.getWidth() <= this->position.x) {
+		return false;
+	}
+	if (other.position.y + other.getHeight() <= this->position.y) {
+		return false;
+	}
+	if (this->position.y + this->getHeight() <= other.position.y) {
+		return false;
+	}
+
+	return true;
+}

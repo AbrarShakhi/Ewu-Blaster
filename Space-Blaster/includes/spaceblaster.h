@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef SPACE_BLASTER_H
-#define SPACE_BLASTER_H
-
 #include <array>
 #include <list>
 
@@ -15,15 +12,18 @@ class SpaceBlaster : public olc::PixelGameEngine {
 	std::array<olc::vi2d *, 100> bgStars = {nullptr};
 	Entity *player = nullptr;
 	std::list<Entity *> enemies;
-	float tick;
+	std::list<Entity *> bullets;
+	float enemiesRate;
+	float fireRate;
 
    public:
 	SpaceBlaster();
-	~SpaceBlaster();
+	~SpaceBlaster() = default;
 	bool OnUserCreate() override;
-	bool HandleUserEvent(float deltaTime);
-
 	bool OnUserUpdate(float deltaTime) override;
-};
+	bool OnUserDestroy() override;
 
-#endif  // !SPACE_BLASTER_H
+	bool HandleUserEvent(float deltaTime);
+	bool UpdateGameLogic(float deltaTime);
+	void RenderScreen();
+};

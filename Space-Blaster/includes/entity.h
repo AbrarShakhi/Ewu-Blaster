@@ -20,6 +20,7 @@ class Entity {
 	float getHeight() const;
 
 	void draw(olc::PixelGameEngine *game);
+	bool collidesWith(const Entity &other) const;
 
    private:
 };
