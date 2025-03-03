@@ -1,4 +1,4 @@
-local GameName = "Space-Blaster"
+local GameName = "Ewu-Blaster"
 
 workspace(GameName)
 	architecture("x64")
@@ -7,7 +7,7 @@ workspace(GameName)
 	language("C++")
 	cppdialect("C++20")
 	staticruntime("off")
-	defines { "SPACE_BLASTER" }
+	defines { "EWU_BLASTER" }
 	
 	targetname("%{prj.name}")
 	targetdir(".out")
@@ -56,9 +56,9 @@ workspace(GameName)
 
 project(GameName)
 	files({
-		"Space-Blaster/src/**.cpp",
+		"Game/src/**.cpp",
 	})
 	includedirs({
 		"Core/olcPixelGameEngine",
-		"Space-Blaster/includes",
+		"Game/includes",
 	})
