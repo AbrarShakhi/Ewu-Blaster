@@ -3,7 +3,7 @@
 #include "random.h"
 
 SpaceBlaster::SpaceBlaster() {
-	sAppName = "Space Blaster";
+	sAppName = "Ewu Blaster";
 	score = 0;
 }
 
@@ -16,7 +16,7 @@ bool SpaceBlaster::OnUserCreate() {
 		                           randint(0, GetScreenSize().y));
 	}
 
-	player = new Entity("Space-Blaster/res/ship.png");
+	player = new Entity("Game/res/ship.png");
 	player->scale = {0.2, 0.2};
 	player->valocity = {0, 0};
 
@@ -80,7 +80,7 @@ bool SpaceBlaster::HandleUserEvent(float deltaTime) {
 bool SpaceBlaster::UpdateGameLogic(float deltaTime) {
 	enemiesRate += 50 * deltaTime;
 	if (enemiesRate > 10 || enemiesRate <= 0) {
-		Entity* astero = new Entity("Space-Blaster/res/asteroid1.png");
+		Entity* astero = new Entity("Game/res/asteroid1.png");
 		astero->scale = {0.2, 0.2};
 		astero->valocity = {0, 25};
 		astero->position = {
@@ -106,7 +106,7 @@ bool SpaceBlaster::UpdateGameLogic(float deltaTime) {
 
 	fireRate += 50 * deltaTime;
 	if (fireRate > 10 || fireRate <= 0) {
-		Entity* bullet = new Entity("Space-Blaster/res/asteroid1.png");
+		Entity* bullet = new Entity("Game/res/asteroid1.png");
 		bullet->scale = {0.03, 0.03};
 		bullet->valocity = {0, -200};
 
