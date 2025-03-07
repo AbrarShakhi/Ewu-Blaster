@@ -1,44 +1,38 @@
 #include "ewublaster.h"
 
-#include "random.h"
+#include "helper.h"
+#include "page.h"
 
-EwuBlaster::EwuBlaster() {
+EwuBlaster::EwuBlaster()
+    : gameStatus(olc::OK), pageTypeNo(PageType::SPLASH_SCREEN) {
+	olc::vi2d size = getMonitorSize();
+
+	initPages();
+
 	sAppName = "Ewu Blaster";
+	gameStatus = Construct(size.x, size.y, 4, 4, false, true);
 }
 
-bool EwuBlaster::OnUserCreate() {
-	return true;
-}
-bool EwuBlaster::OnUserDestroy() {
-	return true;
+EwuBlaster::~EwuBlaster() {
+	for (const auto &pg : pages) {
+		delete pg;
+	}
 }
 
+void EwuBlaster::initPages() {
+	pages[int(PageType::SPLASH_SCREEN)] = new SplashScreen(this);
+	pages[int(PageType::TITLE_SCREEN)] = nullptr;
+	pages[int(PageType::GAMEPLAY)] = nullptr;
+	pages[int(PageType::GAMEOVER)] = nullptr;
+	pages[int(PageType::SETTINGS)] = nullptr;
+}
+
+bool EwuBlaster::OnUserCreate() { return true; }
+bool EwuBlaster::OnUserDestroy() { return true; }
 
 bool EwuBlaster::OnUserUpdate(float deltaTime) {
-	if (!HandleUserEvent(deltaTime)) {
-		return false;
+	if (pages[int(pageTypeNo)]) {
+		return pages[int(pageTypeNo)]->loopFrame(deltaTime);
 	}
-	if (!UpdateGameLogic(deltaTime)) {
-		return false;
-	}
-
-	RenderScreen();
-	return true;
-}
-
-
-bool EwuBlaster::HandleUserEvent(float deltaTime) {
-	if (GetKey(olc::SPACE).bHeld || GetKey(olc::W).bHeld) {
-		return false;
-	}
-	return true;
-}
-
-bool EwuBlaster::UpdateGameLogic(float deltaTime) {
-	return true;
-}
-
-void EwuBlaster::RenderScreen() {
-	Clear(olc::BLACK);
-	DrawString({0, 0}, "HELLo tHERE");
+	return false;
 }

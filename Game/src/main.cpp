@@ -1,10 +1,11 @@
 #define OLC_PGE_APPLICATION
 #include "ewublaster.h"
 
-
 int main() {
 	EwuBlaster game;
-	if (game.Construct(256, 210, 4, 4))
+
+	if (game.gameStatus == olc::OK)
 		game.Start();
-	return 0;
+	else
+		return EXIT_FAILURE;
 }

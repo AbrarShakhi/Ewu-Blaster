@@ -1,24 +1,24 @@
 #pragma once
 
-#include <array>
-#include <list>
+#include <functional>
 
-#include "entity.h"
 #include "olcPixelGameEngine.h"
-
+#include "page.h"
 
 class EwuBlaster : public olc::PixelGameEngine {
-   private:
+   public:
+	olc::rcode gameStatus;
+	PageType pageTypeNo;
+	std::array<Page*, NUM_OF_PAGES> pages;
 
    public:
 	EwuBlaster();
-	~EwuBlaster() = default;
-private:
+	~EwuBlaster();
+
+   private:
 	bool OnUserCreate() override;
 	bool OnUserUpdate(float deltaTime) override;
 	bool OnUserDestroy() override;
 
-	bool HandleUserEvent(float deltaTime);
-	bool UpdateGameLogic(float deltaTime);
-	void RenderScreen();
+	void initPages();
 };
