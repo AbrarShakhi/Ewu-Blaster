@@ -1,10 +1,10 @@
-# Space-Blaster
+# Ewu-Blaster
 
 Using olcPixelGameEngine
 
 ## Install dependencies
 
-### Ubuntu 20.04 and distros based on Ubuntu 20.04
+### Ubuntu 20.04+ and distros based on Ubuntu 20.04+
 
 Update and install the compiler, related build tools, and libraries required to build PixelGameEngine applications.
 
@@ -42,7 +42,8 @@ Space-Blaster (Root)
 ├── Scripts
 │   ├── Setup-Linux.sh
 │   └── Setup-Windows.bat
-├── Space-Blaster
+├── Assets/**.png
+├── Game
 │   ├── includes/**.h
 │   └── src/**.cpp
 └── Vendor
@@ -58,7 +59,7 @@ Space-Blaster (Root)
 
 ## Build project
 
-### Makefile (Linux/Mac)
+### Makefile (Linux/Mac/MinGW)
 
 make `Setup-Linux.sh` and `premake executable`
 
@@ -73,23 +74,20 @@ Now Run the `Setup-Linux.sh` Scripts (Make sure you are in root of the project)
 ./Scripts/Setup-Linux.sh && make
 ```
 
-If compilation is succesfull, you can see a executable file `Space-Blaster` in `.out` folder so run it
+If compilation is succesfull, you can see a executable file `Ewu-Blaster` in `.out` folder so run it
 
 ```sh
-./.out/Space-Blaster
+./.out/Ewu-Blaster
 ```
 
 ### Visual Studio (Windows only)
 
 Go to `Scripts` folder and run `Setup-Winddows.bat`
 
-If compilation is succesfull, you can see a `Space-Blaster.sln` file, open that in visual studio,
+If compilation is succesfull, you can see a `Ewu-Blaster.sln` file, open that in visual studio,
 Now, you can run the game visual studio,
 If you want to see .exe file its in `.out` folder
 
 ## Credits
 
 1. olc Pixel Game Engine by [javidx9](https://www.youtube.com/javidx9) youtube.
-1. Icons
-   1. <a href="https://www.flaticon.com/free-icons/spaceship" title="spaceship icons">Spaceship icons created by Freepik - Flaticon</a>
-   2. <a href="https://www.flaticon.com/free-icons/asteroid" title="asteroid icons">Asteroid icons created by wanicon - Flaticon</a>
