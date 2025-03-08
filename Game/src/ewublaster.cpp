@@ -1,7 +1,8 @@
 #include "ewublaster.h"
 
-#include "helper.h"
-#include "page.h"
+#include "pages/page.h"
+#include "pages/splashscreen.h"
+#include "utils/helper.h"
 
 EwuBlaster::EwuBlaster()
     : gameStatus(olc::OK), pageTypeNo(PageType::SPLASH_SCREEN) {

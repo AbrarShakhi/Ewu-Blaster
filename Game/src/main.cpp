@@ -4,8 +4,7 @@
 int main() {
 	EwuBlaster game;
 
-	if (game.gameStatus == olc::OK)
-		game.Start();
-	else
+	if (game.gameStatus != olc::OK)
 		return EXIT_FAILURE;
+	game.Start();
 }

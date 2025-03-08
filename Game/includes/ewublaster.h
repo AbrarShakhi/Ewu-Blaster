@@ -3,7 +3,7 @@
 #include <functional>
 
 #include "olcPixelGameEngine.h"
-#include "page.h"
+#include "pages/page.h"
 
 class EwuBlaster : public olc::PixelGameEngine {
    public:
