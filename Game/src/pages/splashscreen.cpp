@@ -4,7 +4,12 @@
 SplashScreen::SplashScreen(EwuBlaster *game)
     : Page(game, PageType::SPLASH_SCREEN) {
 	text = "EWU BLASTER";
-	pos = {0, 0};
+
+	olc::vf2d screen_size = callbackGame->GetScreenSize();
+	olc::vf2d text_size = callbackGame->GetTextSize(text);
+
+	pos = screen_size / 2.0f - (text_size / 2.0f);
+
 	col = {255U, 255U, 255U, 0U};
 	alphaChannel = 0;
 	displaytime = 3;
@@ -26,4 +31,6 @@ bool SplashScreen::updateLogics() {
 	return true;
 }
 
-void SplashScreen::renderFrame() { callbackGame->DrawString(pos, text, col); }
+void SplashScreen::renderFrame() {
+	callbackGame->DrawStringDecal(pos, text, col);
+}

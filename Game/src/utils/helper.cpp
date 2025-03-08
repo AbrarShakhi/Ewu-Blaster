@@ -1,7 +1,7 @@
 #include "utils/helper.h"
 
 
-olc::vi2d getMonitorSize() { return {256, 128}; }
+olc::vi2d getMonitorSize() { return {256, 240}; }
 
 inline int64_t generateSeed() {
 	return std::chrono::steady_clock::now().time_since_epoch().count();
