@@ -11,9 +11,14 @@ class EwuBlaster : public olc::PixelGameEngine {
 	PageType pageTypeNo;
 	std::array<Page*, NUM_OF_PAGES> pages;
 
+   private:
+	uint64_t gameScore;
+
    public:
 	EwuBlaster();
 	~EwuBlaster();
+
+	inline uint64_t getGameScore() { return gameScore; }
 
    private:
 	bool OnUserCreate() override;
@@ -21,4 +26,6 @@ class EwuBlaster : public olc::PixelGameEngine {
 	bool OnUserDestroy() override;
 
 	void initPages();
+
+	inline void setGameScore(uint64_t score) { gameScore = score; }
 };
