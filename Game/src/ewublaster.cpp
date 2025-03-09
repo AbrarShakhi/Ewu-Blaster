@@ -1,5 +1,6 @@
 #include "ewublaster.h"
 
+#include "pages/gameover.h"
 #include "pages/page.h"
 #include "pages/splashscreen.h"
 #include "utils/helper.h"
@@ -10,6 +11,7 @@ EwuBlaster::EwuBlaster()
 
 	initPages();
 
+	gameScore = 0;
 	sAppName = "Ewu Blaster";
 	gameStatus = Construct(size.x, size.y, 4, 4, false, true);
 }
@@ -24,7 +26,7 @@ void EwuBlaster::initPages() {
 	pages[int(PageType::SPLASH_SCREEN)] = new SplashScreen(this);
 	pages[int(PageType::TITLE_SCREEN)] = nullptr;
 	pages[int(PageType::GAMEPLAY)] = nullptr;
-	pages[int(PageType::GAMEOVER)] = nullptr;
+	pages[int(PageType::GAMEOVER)] = new GameOver(this);
 	pages[int(PageType::SETTINGS)] = nullptr;
 }
 
