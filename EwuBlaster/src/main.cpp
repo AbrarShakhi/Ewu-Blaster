@@ -1,8 +1,8 @@
 #define OLC_PGE_APPLICATION
-#include "ewublaster.h"
+#include "game.h"
 
 int main() {
-	EwuBlaster game;
+	Game game;
 
 	if (game.gameStatus != olc::OK)
 		return EXIT_FAILURE;

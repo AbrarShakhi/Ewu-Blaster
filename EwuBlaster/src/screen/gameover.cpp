@@ -1,8 +1,9 @@
 
-#include "pages/gameover.h"
+#include "screens/gameover.h"
 
+#include <sstream>
 
-GameOver::GameOver(EwuBlaster *game) : Page(game, PageType::SPLASH_SCREEN) {
+GameOver::GameOver(Game *game) : Screen(game, ScreenType::SPLASH_SCREEN) {
 	titleText = "Game Over";
 	scoreInfoText = "Your Score";
 	pressKeyText = "Press Any Key";

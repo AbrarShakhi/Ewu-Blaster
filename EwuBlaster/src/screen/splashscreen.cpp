@@ -1,8 +1,8 @@
-#include "pages/splashscreen.h"
+#include "screens/splashscreen.h"
 
 
-SplashScreen::SplashScreen(EwuBlaster *game)
-    : Page(game, PageType::SPLASH_SCREEN) {
+SplashScreen::SplashScreen(Game *game)
+    : Screen(game, ScreenType::SPLASH_SCREEN) {
 	text = "EWU BLASTER";
 
 	olc::vf2d screen_size = callbackGame->GetScreenSize();
@@ -27,7 +27,7 @@ bool SplashScreen::updateLogics() {
 	}
 
 	if (displaytime < 1)
-		return false;
+		callbackGame->screenTypeNo = ScreenType::TITLE_SCREEN;
 	return true;
 }
 

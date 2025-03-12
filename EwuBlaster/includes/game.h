@@ -3,20 +3,21 @@
 #include <functional>
 
 #include "olcPixelGameEngine.h"
-#include "pages/page.h"
+#include "screens/screen.h"
 
-class EwuBlaster : public olc::PixelGameEngine {
+
+class Game : public olc::PixelGameEngine {
    public:
 	olc::rcode gameStatus;
-	PageType pageTypeNo;
-	std::array<Page*, NUM_OF_PAGES> pages;
+	ScreenType screenTypeNo;
+	std::array<Screen*, NUM_OF_SCREENS> screens;
 
    private:
 	uint64_t gameScore;
 
    public:
-	EwuBlaster();
-	~EwuBlaster();
+	Game();
+	~Game();
 
 	inline uint64_t getGameScore() { return gameScore; }
 
@@ -25,7 +26,7 @@ class EwuBlaster : public olc::PixelGameEngine {
 	bool OnUserUpdate(float deltaTime) override;
 	bool OnUserDestroy() override;
 
-	void initPages();
+	void initScreens();
 
 	inline void setGameScore(uint64_t score) { gameScore = score; }
 };

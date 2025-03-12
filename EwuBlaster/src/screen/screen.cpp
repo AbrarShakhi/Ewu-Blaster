@@ -1,14 +1,14 @@
 
-#include "pages/page.h"
+#include "screens/screen.h"
 
-#include "ewublaster.h"
+#include "game.h"
 
 
-Page::Page(EwuBlaster *game, PageType pageName) : pageTypeName(pageName) {
+Screen::Screen(Game *game, ScreenType screenType) : screenTypeName(screenType) {
 	callbackGame = game;
 }
 
-bool Page::loopFrame(float deltaTime) {
+bool Screen::loopFrame(float deltaTime) {
 	this->deltaTime = deltaTime;
 
 	callbackGame->Clear(olc::BLACK);

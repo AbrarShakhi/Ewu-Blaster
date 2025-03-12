@@ -2,11 +2,11 @@
 
 #include <cstdint>
 
-class EwuBlaster;
+class Game;
 
-const static inline int8_t NUM_OF_PAGES = 5;
+const static inline int8_t NUM_OF_SCREENS = 5;
 
-enum class PageType {
+enum class ScreenType {
 	SPLASH_SCREEN,
 	TITLE_SCREEN,
 	GAMEPLAY,
@@ -14,16 +14,16 @@ enum class PageType {
 	SETTINGS
 };
 
-class Page {
+class Screen {
    public:
-	const PageType pageTypeName;
+	const ScreenType screenTypeName;
 
    protected:
 	float deltaTime = 1;
-	EwuBlaster *callbackGame = nullptr;
+	Game *callbackGame = nullptr;
 
    public:
-	Page(EwuBlaster *game, PageType pageName);
+	Screen(Game *game, ScreenType screenName);
 
 	bool loopFrame(float deltaTime);
 

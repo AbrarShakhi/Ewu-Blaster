@@ -1,6 +1,6 @@
-local GameName = "Ewu-Blaster"
+local GameName = "EwuBlaster"
 
-workspace(GameName)
+workspace("Ewu-Blaster")
 	architecture("x64")
 	configurations({ "Debug", "Release", "Dist" })
 	startproject(GameName)
@@ -56,9 +56,9 @@ workspace(GameName)
 
 project(GameName)
 	files({
-		"Game/src/**.cpp",
+		"EwuBlaster/src/**.cpp",
 	})
 	includedirs({
 		"Core/olcPixelGameEngine",
-		"Game/includes",
+		"EwuBlaster/includes",
 	})

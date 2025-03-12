@@ -1,9 +1,9 @@
 #pragma once
 
-#include "ewublaster.h"
-#include "pages/page.h"
+#include "game.h"
+#include "screens/screen.h"
 
-class GameOver : public Page {
+class GameOver : public Screen {
    public:
    private:
 	std::string scoreText;
@@ -21,7 +21,7 @@ class GameOver : public Page {
 	olc::vf2d pressKeyTextPos;
 
    public:
-	GameOver(EwuBlaster *game);
+	GameOver(Game *game);
 	~GameOver() = default;
 
    private:

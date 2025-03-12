@@ -1,7 +1,7 @@
-#include "ewublaster.h"
-#include "pages/page.h"
+#include "game.h"
+#include "screens/screen.h"
 
-class SplashScreen : public Page {
+class SplashScreen : public Screen {
    public:
    private:
 	std::string text;
@@ -11,7 +11,7 @@ class SplashScreen : public Page {
 	float displaytime;
 
    public:
-	SplashScreen(EwuBlaster *game);
+	SplashScreen(Game *game);
 	~SplashScreen() = default;
 
    private:
