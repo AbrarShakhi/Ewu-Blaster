@@ -1,8 +1,7 @@
 #include "screens/splashscreen.h"
 
 
-SplashScreen::SplashScreen(Game *game)
-    : Screen(game, ScreenType::SPLASH_SCREEN) {
+SplashScreen::SplashScreen(Game *p_game) : Screen(p_game, ScreenType::SPLASH_SCREEN) {
 	text = "EWU BLASTER";
 
 	olc::vf2d screen_size = callbackGame->GetScreenSize();
@@ -15,7 +14,9 @@ SplashScreen::SplashScreen(Game *game)
 	displaytime = 3;
 }
 
-bool SplashScreen::handleEvents() { return true; }
+bool SplashScreen::handleEvents() {
+	return true;
+}
 
 bool SplashScreen::updateLogics() {
 	alphaChannel += 50 * deltaTime;
@@ -27,7 +28,7 @@ bool SplashScreen::updateLogics() {
 	}
 
 	if (displaytime < 1)
-		callbackGame->screenTypeNo = ScreenType::TITLE_SCREEN;
+		callbackGame->activeScreenType = ScreenType::TITLE_SCREEN;
 	return true;
 }
 

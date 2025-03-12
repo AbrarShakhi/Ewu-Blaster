@@ -1,7 +1,9 @@
 #include "utils/helper.h"
 
 
-olc::vi2d getMonitorSize() { return {256, 240}; }
+olc::vi2d getMonitorSize() {
+	return {256, 240};
+}
 
 inline int64_t generateSeed() {
 	return std::chrono::steady_clock::now().time_since_epoch().count();
@@ -14,11 +16,11 @@ inline std::mt19937 useMtEngine() {
 }
 
 template <typename _IntType>
-_IntType randInt(_IntType a, _IntType b) {
-	return std::uniform_int_distribution<_IntType>(a, b)(useMtEngine());
+_IntType randInt(_IntType p_min, _IntType p_max) {
+	return std::uniform_int_distribution<_IntType>(p_min, p_max)(useMtEngine());
 }
 
 template <typename _RealType>
-_RealType randReal(_RealType a, _RealType b) {
-	return std::uniform_real_distribution<_RealType>(a, b)(useMtEngine());
+_RealType randReal(_RealType p_min, _RealType p_max) {
+	return std::uniform_real_distribution<_RealType>(p_min, p_max)(useMtEngine());
 }

@@ -1,6 +1,7 @@
 #define OLC_PGE_APPLICATION
 #include "game.h"
 
+
 int main() {
 	Game game;
 

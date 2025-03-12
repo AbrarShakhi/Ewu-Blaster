@@ -8,7 +8,7 @@
 olc::vi2d getMonitorSize();
 
 template <typename _IntType = int>
-_IntType randInt(_IntType a, _IntType b);
+_IntType randInt(_IntType p_min, _IntType p_max);
 
 template <typename _RealType = double>
-_RealType randReal(_RealType a, _RealType b);
+_RealType randReal(_RealType p_min, _RealType p_max);

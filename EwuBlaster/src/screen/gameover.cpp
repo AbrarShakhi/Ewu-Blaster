@@ -3,7 +3,7 @@
 
 #include <sstream>
 
-GameOver::GameOver(Game *game) : Screen(game, ScreenType::SPLASH_SCREEN) {
+GameOver::GameOver(Game *p_game) : Screen(p_game, ScreenType::SPLASH_SCREEN) {
 	titleText = "Game Over";
 	scoreInfoText = "Your Score";
 	pressKeyText = "Press Any Key";
@@ -35,7 +35,6 @@ void GameOver::renderFrame() {
 	//                               titleTextScale);
 	// callbackGame->DrawStringDecal(scoreInfoTextPos, scoreInfoText,
 	// olc::WHITE);
-	callbackGame->DrawStringDecal(scoreTextPos, scoreText, olc::WHITE,
-	                              scoreTextScale);
+	callbackGame->DrawStringDecal(scoreTextPos, scoreText, olc::WHITE, scoreTextScale);
 	// callbackGame->DrawStringDecal(pressKeyTextPos, pressKeyText, olc::WHITE);
 }

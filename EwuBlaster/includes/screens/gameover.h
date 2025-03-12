@@ -4,8 +4,8 @@
 #include "screens/screen.h"
 
 class GameOver : public Screen {
-   public:
-   private:
+public:
+private:
 	std::string scoreText;
 	olc::vf2d scoreTextPos;
 	olc::vf2d scoreTextScale;
@@ -20,11 +20,11 @@ class GameOver : public Screen {
 	std::string pressKeyText;
 	olc::vf2d pressKeyTextPos;
 
-   public:
-	GameOver(Game *game);
+public:
+	GameOver(Game *p_game);
 	~GameOver() = default;
 
-   private:
+private:
 	bool handleEvents() override;
 	bool updateLogics() override;
 	void renderFrame() override;

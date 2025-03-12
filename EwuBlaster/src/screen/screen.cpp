@@ -4,12 +4,12 @@
 #include "game.h"
 
 
-Screen::Screen(Game *game, ScreenType screenType) : screenTypeName(screenType) {
-	callbackGame = game;
+Screen::Screen(Game *p_game, ScreenType p_screen_type) : screenType(p_screen_type) {
+	callbackGame = p_game;
 }
 
-bool Screen::loopFrame(float deltaTime) {
-	this->deltaTime = deltaTime;
+bool Screen::loopFrame(float p_delta_time) {
+	this->deltaTime = p_delta_time;
 
 	callbackGame->Clear(olc::BLACK);
 

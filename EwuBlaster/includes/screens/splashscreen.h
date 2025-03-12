@@ -2,19 +2,19 @@
 #include "screens/screen.h"
 
 class SplashScreen : public Screen {
-   public:
-   private:
+public:
+private:
 	std::string text;
 	olc::vf2d pos;
 	olc::Pixel col;
 	float alphaChannel;
 	float displaytime;
 
-   public:
-	SplashScreen(Game *game);
+public:
+	SplashScreen(Game *p_game);
 	~SplashScreen() = default;
 
-   private:
+private:
 	bool handleEvents() override;
 	bool updateLogics() override;
 	void renderFrame() override;

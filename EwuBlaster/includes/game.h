@@ -7,26 +7,30 @@
 
 
 class Game : public olc::PixelGameEngine {
-   public:
+public:
 	olc::rcode gameStatus;
-	ScreenType screenTypeNo;
+	ScreenType activeScreenType;
 	std::array<Screen*, NUM_OF_SCREENS> screens;
 
-   private:
+private:
 	uint64_t gameScore;
 
-   public:
+public:
 	Game();
 	~Game();
 
-	inline uint64_t getGameScore() { return gameScore; }
+	inline uint64_t getGameScore() {
+		return gameScore;
+	}
 
-   private:
+private:
 	bool OnUserCreate() override;
 	bool OnUserUpdate(float deltaTime) override;
 	bool OnUserDestroy() override;
 
 	void initScreens();
 
-	inline void setGameScore(uint64_t score) { gameScore = score; }
+	inline void setGameScore(uint64_t score) {
+		gameScore = score;
+	}
 };
