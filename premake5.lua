@@ -59,6 +59,6 @@ project(GameName)
 		"EwuBlaster/src/**.cpp",
 	})
 	includedirs({
-		"Core/olcPixelGameEngine",
+		"Core/olc",
 		"EwuBlaster/includes",
 	})

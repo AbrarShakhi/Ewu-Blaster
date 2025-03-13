@@ -1,6 +1,7 @@
 #pragma once
 
 #include "game.h"
+#include "objs/entity.h"
 #include "screens/screen.h"
 
 class GamePlay : public Screen {
