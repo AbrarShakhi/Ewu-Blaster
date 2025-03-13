@@ -14,7 +14,7 @@ public:
 
 protected:
 	float deltaTime = 1;
-	Game *callbackGame = nullptr;
+	Game *callbackGame;
 
 public:
 	Screen(Game *p_game, ScreenType p_screen_type);

@@ -35,7 +35,7 @@ sudo dnf install gcc-c++ glew-devel glm-devel libpng-devel
 ```
 Space-Blaster (Root)
 ├── Core
-│   └── olcPixelGameEngine
+│   └── olc
 │       ├── LICENCE.md
 │       └── olcPixelGameEngine.h
 ├── premake5.lua
@@ -49,12 +49,9 @@ Space-Blaster (Root)
 └── Vendor
     └── Premake
         ├── LICENSE.txt
-        ├── Linux
-        │   └── premake5
-        ├── macOS
-        │   └── premake5
-        └── Windows
-            └── premake5.exe
+        ├── premake5.out
+        ├── premake5.osx
+        └── premake5.exe
 ```
 
 ## Build project
