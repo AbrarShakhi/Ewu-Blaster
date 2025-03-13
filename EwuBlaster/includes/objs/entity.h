@@ -2,19 +2,18 @@
 
 #include "olcPixelGameEngine.h"
 
+class Game;
 
 class Entity {
 	enum State { INACTIVE = -1, DEAD, ALIVE };
 
 public:
-	olc::vf2d postion;
-	olc::vf2d scale;
-
-	State state;
-
 private:
 	olc::Sprite *sprite;
 	olc::Decal *decal;
+	olc::vf2d position;
+	olc::vf2d scale;
+	State state;
 
 public:
 	Entity(const char *p_filepath);
@@ -22,6 +21,10 @@ public:
 
 	float height() const;
 	float width() const;
+
+	void setHeight(float p_height);
+	void setWidth(float p_width);
+	void setScaling(olc::vf2d p_new_scale);
 
 	olc::vf2d topLeft() const;
 	olc::vf2d topCenter() const;
@@ -32,6 +35,18 @@ public:
 	olc::vf2d leftCenter() const;
 	olc::vf2d rightCenter() const;
 	olc::vf2d center() const;
+
+	void setTopLeft(olc::vf2d p_pos);
+	void setTopCenter(olc::vf2d p_pos);
+	void setTopRight(olc::vf2d p_pos);
+	void setBottomLeft(olc::vf2d p_pos);
+	void setBottomCenter(olc::vf2d p_pos);
+	void setBottomRight(olc::vf2d p_pos);
+	void setLeftCenter(olc::vf2d p_pos);
+	void setRightCenter(olc::vf2d p_pos);
+	void setCenter(olc::vf2d p_pos);
+
+	void draw(Game *p_game) const;
 
 private:
 };
