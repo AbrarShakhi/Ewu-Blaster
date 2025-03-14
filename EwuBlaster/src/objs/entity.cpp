@@ -103,7 +103,7 @@ void Entity::draw(Game *p_game) const {
 
 
 void Entity::move(float p_delta_time) {
-	velocity += (acceleration * p_delta_time * 0.5f);
-	position += (velocity * p_delta_time);
-	velocity += (acceleration * p_delta_time * 0.5f);
+	velocity += acceleration * p_delta_time * 0.5f;
+	position += velocity.norm() * velocity.mag() * p_delta_time;
+	velocity += acceleration * p_delta_time * 0.5f;
 }
