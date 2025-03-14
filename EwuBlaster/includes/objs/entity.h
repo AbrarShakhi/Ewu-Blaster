@@ -11,9 +11,13 @@ public:
 private:
 	olc::Sprite *sprite;
 	olc::Decal *decal;
+	State state;
+
 	olc::vf2d position;
 	olc::vf2d scale;
-	State state;
+
+	olc::vf2d velocity;
+	olc::vf2d acceleration;
 
 public:
 	Entity(const char *p_filepath);
@@ -47,6 +51,7 @@ public:
 	void setCenter(olc::vf2d p_pos);
 
 	void draw(Game *p_game) const;
+	void move(float p_delta_time);
 
 private:
 };

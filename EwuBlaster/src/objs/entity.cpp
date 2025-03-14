@@ -7,8 +7,14 @@
 Entity::Entity(const char *p_filepath) {
 	sprite = new olc::Sprite(p_filepath);
 	decal = new olc::Decal(sprite);
+
+	state = State::INACTIVE;
+
 	position = {0, 0};
 	scale = {1, 1};
+
+	velocity = {0, 0};
+	acceleration = {0, 0};
 }
 
 Entity::~Entity() {
@@ -93,4 +99,11 @@ void Entity::setCenter(olc::vf2d p_pos) {
 
 void Entity::draw(Game *p_game) const {
 	p_game->DrawDecal(position, decal, scale);
+}
+
+
+void Entity::move(float p_delta_time) {
+	velocity += (acceleration * p_delta_time * 0.5f);
+	position += (velocity * p_delta_time);
+	velocity += (acceleration * p_delta_time * 0.5f);
 }
