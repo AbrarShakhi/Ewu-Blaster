@@ -41,6 +41,7 @@ Space-Blaster (Root)
 ├── premake5.lua
 ├── Scripts
 │   ├── Setup-Linux.sh
+│   ├── Setup-MinGW.bat
 │   └── Setup-Windows.bat
 ├── Assets/**.png
 ├── Game
