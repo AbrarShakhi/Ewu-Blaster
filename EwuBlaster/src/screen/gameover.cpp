@@ -3,7 +3,7 @@
 
 #include <sstream>
 
-GameOver::GameOver(Game *p_game) : Screen(p_game, ScreenType::SPLASH_SCREEN) {
+GameOver::GameOver(Game *p_game) : Screen(p_game, ScreenType::GAMEOVER) {
 	titleText = "Game Over";
 	scoreInfoText = "Your Score";
 	pressKeyText = "Press Any Key";

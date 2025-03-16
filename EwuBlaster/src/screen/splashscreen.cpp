@@ -11,7 +11,6 @@ SplashScreen::SplashScreen(Game *p_game) : Screen(p_game, ScreenType::SPLASH_SCR
 
 	col = {255U, 255U, 255U, 0U};
 	alphaChannel = 0;
-	displaytime = 3;
 }
 
 bool SplashScreen::handleEvents() {
@@ -22,13 +21,14 @@ bool SplashScreen::updateLogics() {
 	alphaChannel += 50 * deltaTime;
 	if (int(alphaChannel) < 256) {
 		col.a = uint8_t(int(alphaChannel));
+		t.reset();
 	} else {
 		col.a = 255U;
-		displaytime -= deltaTime;
+		if (t.elapsed() >= 1) {
+			callbackGame->activeScreenType = ScreenType::TITLE_SCREEN;
+		}
 	}
 
-	if (displaytime < 1)
-		callbackGame->activeScreenType = ScreenType::TITLE_SCREEN;
 	return true;
 }
 

@@ -1,7 +1,7 @@
 #include "screens/titlescreen.h"
 
 
-TitleScreen::TitleScreen(Game *p_game) : Screen(p_game, ScreenType::SPLASH_SCREEN) {
+TitleScreen::TitleScreen(Game *p_game) : Screen(p_game, ScreenType::TITLE_SCREEN) {
 }
 
 bool TitleScreen::handleEvents() {

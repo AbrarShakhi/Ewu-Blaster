@@ -1,5 +1,6 @@
 #include "game.h"
 #include "screens/screen.h"
+#include "utils/timer.h"
 
 class SplashScreen : public Screen {
 public:
@@ -8,10 +9,11 @@ private:
 	olc::vf2d pos;
 	olc::Pixel col;
 	float alphaChannel;
-	float displaytime;
+	Timer t;
+
 
 public:
-	SplashScreen(Game *p_game);
+	SplashScreen(Game* p_game);
 	~SplashScreen() = default;
 
 private:

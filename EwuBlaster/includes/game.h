@@ -25,12 +25,12 @@ public:
 
 private:
 	bool OnUserCreate() override;
-	bool OnUserUpdate(float deltaTime) override;
+	bool OnUserUpdate(float p_delta_time) override;
 	bool OnUserDestroy() override;
 
 	void initScreens();
 
-	inline void setGameScore(uint64_t score) {
-		gameScore = score;
+	inline void setGameScore(uint64_t p_score) {
+		gameScore = p_score;
 	}
 };

@@ -1,6 +1,6 @@
 #include "screens/gameplay.h"
 
-GamePlay::GamePlay(Game* p_game) : Screen(p_game, ScreenType::SPLASH_SCREEN) {
+GamePlay::GamePlay(Game* p_game) : Screen(p_game, ScreenType::GAMEPLAY) {
 }
 
 bool GamePlay::handleEvents() {
