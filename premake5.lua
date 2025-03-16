@@ -34,15 +34,22 @@ workspace("Ewu-Blaster")
 		runtime("Release")
 		optimize("On")
 		symbols("Off")
-
+		
 	filter { "system:windows" }
-		buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus" }
 		links { "user32", "gdi32" }
 		systemversion "latest"
 		defines { "WINDOWS" }
 		
+	filter { "action:vs*" }
+		buildoptions { "/EHsc", "/MP", "/Zc:preprocessor", "/Zc:__cplusplus" }
+		defines { "MSVC" }
+	
+	filter { "action:gmake*"}
+		buildoptions { "-std=c++20"}
+		defines { "GCC" }
+		-- buildcommands { "make -j8" }
+
 	filter { "system:linux" }
-		buildoptions { "-std=c++20" }
 		links { "X11", "GL", "pthread", "png" }
 		defines { 
 			"_GLIBCXX_USE_CXX11_ABI=0",
@@ -56,9 +63,9 @@ workspace("Ewu-Blaster")
 
 project(GameName)
 	files({
-		"EwuBlaster/src/**.cpp",
+		GameName .. "/src/**.cpp",
 	})
 	includedirs({
 		"Core/olc",
-		"EwuBlaster/includes",
+		GameName .. "/includes",
 	})
