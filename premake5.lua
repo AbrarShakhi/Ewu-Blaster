@@ -63,11 +63,14 @@ workspace("Ewu-Blaster")
 	filter {}
 
 
+
 project(GameName)
-	files({
-		GameName .. "/src/**.cpp",
-	})
-	includedirs({
+	files {
+		EngineName .. "/*.h",
+		GameName .. "/includes/**.h",
+		GameName .. "/src/**.cpp"
+	}
+	includedirs {
 		EngineName .. "/",
-		GameName .. "/includes/",
-	})
+		GameName .. "/includes/"
+	}
