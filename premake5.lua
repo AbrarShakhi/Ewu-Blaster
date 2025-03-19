@@ -68,6 +68,6 @@ project(GameName)
 		GameName .. "/src/**.cpp",
 	})
 	includedirs({
-		"Core/" .. EngineName,
-		GameName .. "/includes",
+		EngineName .. "/",
+		GameName .. "/includes/",
 	})
