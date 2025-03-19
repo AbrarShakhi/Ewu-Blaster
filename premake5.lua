@@ -1,4 +1,6 @@
+
 local GameName = "EwuBlaster"
+local EngineName = "olcPixelGameEngine"
 
 workspace("Ewu-Blaster")
 	architecture("x64")
@@ -8,17 +10,17 @@ workspace("Ewu-Blaster")
 	cppdialect("C++20")
 	staticruntime("off")
 	defines { "EWU_BLASTER" }
-	
+
 	targetname("%{prj.name}")
 	targetdir(".out")
 	objdir(".out/obj")
-	
+
 	filter("configurations:Debug")
 		kind("ConsoleApp")
 		defines({ "DEBUG" })
 		runtime("Debug")
 		symbols("On")
-		
+
 	filter("configurations:Release")
 		-- kind("WindowedApp")
 		kind("ConsoleApp")
@@ -26,7 +28,7 @@ workspace("Ewu-Blaster")
 		runtime("Release")
 		optimize("On")
 		symbols("On")
-		
+
 	filter("configurations:Dist")
 		-- kind("WindowedApp")
 		kind("ConsoleApp")
@@ -34,16 +36,16 @@ workspace("Ewu-Blaster")
 		runtime("Release")
 		optimize("On")
 		symbols("Off")
-		
+
 	filter { "system:windows" }
 		links { "user32", "gdi32" }
 		systemversion "latest"
 		defines { "WINDOWS" }
-		
+
 	filter { "action:vs*" }
 		buildoptions { "/EHsc", "/MP", "/Zc:preprocessor", "/Zc:__cplusplus" }
 		defines { "MSVC" }
-	
+
 	filter { "action:gmake*"}
 		buildoptions { "-std=c++20"}
 		defines { "GCC" }
@@ -51,11 +53,11 @@ workspace("Ewu-Blaster")
 
 	filter { "system:linux" }
 		links { "X11", "GL", "pthread", "png" }
-		defines { 
+		defines {
 			"_GLIBCXX_USE_CXX11_ABI=0",
 			 "LINUX"
 		}
-		
+
 	filter { "system:macosx" }
 		defines { "MACOSX" }
 	filter {}
@@ -66,6 +68,6 @@ project(GameName)
 		GameName .. "/src/**.cpp",
 	})
 	includedirs({
-		"Core/olc",
+		"Core/" .. EngineName,
 		GameName .. "/includes",
 	})
