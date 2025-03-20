@@ -1,33 +1,98 @@
-#include "utils\objectpool.h"
+// #include "utils/objectpool.h"
+#include "../../includes/utils/objectpool.h"
 
-template <typename T>
-objectPool<T>::objectPool(size_t size) {
-	object_pools.resize(size);
-	for (size_t i = 0; i < size; i++) {
-		object_pools[i] = new T();
-		allocated.push_back(object_pools[i]);
-	}
+#include <assert.h>
+
+#include <cstdlib>
+#include <iostream>
+#include <vector>
+
+
+ObjectPool::ObjectPool() : ObjectPool(1000) {
 }
 
-template <typename T>
-objectPool<T>::~objectPool() {
-	for (T* ptr : object_pools) {
-		delete ptr;
+ObjectPool::ObjectPool(size_t p_capacity) : capacity(p_capacity) {
+	pools = new Object[capacity];
+	if (!pools) {
+		capacity = 0;
+		return;
 	}
+
+	for (size_t i = 0; i < capacity - 1; i++) {
+		pools[i].next = &(pools[i + 1]);
+	}
+	pools[capacity - 1].next = nullptr;
+	freeHead = pools;
+	allocated = 0;
 }
 
+ObjectPool::~ObjectPool() {
+	if (pools)
+		delete[] pools;
+}
 
-template <typename T>
-T* objectPool<T>::borrow() {
-	if (!allocated.empty()) {
-		T* obj = allocated.back();
-		allocated.pop_back();
-		return obj;
+Vect* ObjectPool::borrow() {
+	if (freeHead) {
+		struct Object* backup = freeHead;
+		freeHead = freeHead->next;
+		allocated++;
+		return &(backup->obj);
 	}
 	return nullptr;
 }
 
-template<typename T>
-void objectPool<T>::release(T* obj) {
-	allocated.push_back(obj);
+void ObjectPool::release(Vect* p_obj) {
+	auto i = (uintptr_t(p_obj) - uintptr_t(pools)) / sizeof(pools);
+
+	if (&(pools[i].obj) != p_obj) {
+		std::cout << "ERROR: " << i << '\n';
+		for (size_t j = 0; j < capacity; j++) {
+			if (p_obj == &(pools[j].obj)) {
+				std::cout << "matched at " << j << "\n";
+			}
+		}
+
+		exit(1);
+	}
+
+	auto to_add = &(pools[i]);
+	to_add->next = freeHead;
+	freeHead = to_add;
+	allocated--;
+}
+
+size_t ObjectPool::getCapacity() const {
+	return capacity;
+}
+size_t ObjectPool::howManyAllocated() const {
+	return allocated;
+}
+size_t ObjectPool::howManyFree() const {
+	return capacity - allocated;
+}
+
+int main() {
+	ObjectPool o;
+	int N = 100;
+
+	for (size_t n = 0; n < N; n++) {
+		int rn = rand() % o.getCapacity();
+		std::cout << "Round: " << rn << '\n';
+
+		std::vector<Vect*> arr;
+
+		for (size_t i = 0; i < rn; i++) {
+			auto v = o.borrow();
+			v->x = i;
+			v->y = i * 2;
+			v->z = i * 3;
+			arr.emplace_back(v);
+			std::cout << "howManyAllocated: " << o.howManyAllocated() << ". howManyFree: " << o.howManyFree() << ". ["
+			          << v->x << " " << v->y << " " << v->z << "]" << '\n';
+		}
+
+		for (size_t i = 0; i < rn; i++) {
+			o.release(arr[i]);
+		}
+	}
 }
