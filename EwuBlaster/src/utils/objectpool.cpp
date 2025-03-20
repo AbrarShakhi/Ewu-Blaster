@@ -42,7 +42,7 @@ Vect* ObjectPool::borrow() {
 }
 
 void ObjectPool::release(Vect* p_obj) {
-	auto i = (uintptr_t(p_obj) - uintptr_t(pools)) / sizeof(pools);
+	auto i = (uintptr_t(p_obj) - uintptr_t(pools)) / sizeof(struct Object);
 
 	if (&(pools[i].obj) != p_obj) {
 		std::cout << "ERROR: " << i << '\n';
