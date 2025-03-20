@@ -3,14 +3,10 @@
 #include <cstdlib>
 #include <memory>
 
-struct Vect {
-	int x, y, z;
-};
-
-
+template <typename T>
 class ObjectPool {
 	struct Object {
-		Vect obj;
+		T obj;
 		struct Object* next;
 	};
 
@@ -26,8 +22,8 @@ public:
 	ObjectPool(size_t p_capacity);
 	~ObjectPool();
 
-	Vect* borrow();
-	void release(Vect* p_obj);
+	T* borrow();
+	void release(T* p_obj);
 
 	size_t getCapacity() const;
 	size_t howManyAllocated() const;
