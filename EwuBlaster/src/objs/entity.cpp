@@ -1,6 +1,7 @@
 
 #include "objs/entity.h"
 
+#include "entity.h"
 #include "game.h"
 
 
@@ -38,6 +39,26 @@ void Entity::setWidth(float p_width) {
 }
 void Entity::setScaling(olc::vf2d p_new_scale) {
 	scale = p_new_scale;
+}
+
+void Entity::setEntityState(State p_state) {
+	state = p_state;
+}
+Entity::State Entity::getEntityState() const {
+	return state;
+}
+
+olc::vf2d Entity::getVelocity() const {
+	return velocity;
+}
+void Entity::setVelocity(olc::vf2d p_vel) {
+	velocity = p_vel;
+}
+olc::vf2d Entity::getAcceleration() const {
+	return acceleration;
+}
+void Entity::setAcceleration(olc::vf2d p_accel) {
+	acceleration = p_accel;
 }
 
 void Entity::draw(Game *p_game) const {
