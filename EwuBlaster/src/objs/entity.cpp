@@ -1,6 +1,7 @@
 
 #include "objs/entity.h"
 
+#include "entity.h"
 #include "game.h"
 
 Entity::Entity(const char *p_filepath) : Entity(p_filepath, {0, 0}, {1, 1}, {0, 0}, {0, 0}) {
@@ -28,6 +29,11 @@ Entity::Entity(const char *p_filepath, olc::vf2d p_pos, olc::vf2d p_scale, olc::
 	state = State::INACTIVE;
 }
 
+void Entity::move(float p_delta_time) {
+	velocity += acceleration * p_delta_time * 0.5f;
+	position += velocity.norm() * velocity.mag() * p_delta_time;
+	velocity += acceleration * p_delta_time * 0.5f;
+}
 
 float Entity::height() const {
 	return (decal.sprite->height) * scale.y;
@@ -46,9 +52,22 @@ void Entity::setScaling(olc::vf2d p_new_scale) {
 	scale = p_new_scale;
 }
 
+void Entity::setEntityState(State p_state) {
+	state = p_state;
+}
+Entity::State Entity::getEntityState() const {
+	return state;
+}
 
-void Entity::move(float p_delta_time) {
-	velocity += acceleration * p_delta_time * 0.5f;
-	position += velocity.norm() * velocity.mag() * p_delta_time;
-	velocity += acceleration * p_delta_time * 0.5f;
+olc::vf2d Entity::getVelocity() const {
+	return velocity;
+}
+void Entity::setVelocity(olc::vf2d p_vel) {
+	velocity = p_vel;
+}
+olc::vf2d Entity::getAcceleration() const {
+	return acceleration;
+}
+void Entity::setAcceleration(olc::vf2d p_accel) {
+	acceleration = p_accel;
 }

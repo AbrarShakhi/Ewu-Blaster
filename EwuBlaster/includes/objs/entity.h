@@ -5,17 +5,17 @@
 
 class Game;
 
+
 class Entity : public PositionRect {
+public:
 	enum State { INACTIVE = -1, DEAD, ALIVE };
 
-public:
-private:
+protected:
 	olc::Sprite sprite;
 	olc::Decal decal;
+
 	State state;
-
 	olc::vf2d scale;
-
 	olc::vf2d velocity;
 	olc::vf2d acceleration;
 
@@ -28,15 +28,21 @@ public:
 	       olc::vf2d p_init_accelation);
 	~Entity() = default;
 
+	virtual void draw(Game *p_game) const = 0;
+
+	void move(float p_delta_time);
+
 	float height() const override;
 	float width() const override;
 	void setHeight(float p_height);
 	void setWidth(float p_width);
 	void setScaling(olc::vf2d p_new_scale);
 
-	void move(float p_delta_time);
+	void setEntityState(State p_state);
+	State getEntityState() const;
 
-	virtual void draw(Game *p_game) const = 0;
-
-private:
+	olc::vf2d getVelocity() const;
+	void setVelocity(olc::vf2d p_vel);
+	olc::vf2d getAcceleration() const;
+	void setAcceleration(olc::vf2d p_accel);
 };
