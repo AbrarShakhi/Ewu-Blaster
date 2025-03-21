@@ -1,18 +1,33 @@
 #pragma once
-#include "olcPixelGameEngine.h"
-#include <vector>
 
+#include <cstdlib>
+#include <memory>
 
 template <typename T>
-class objectPool {
-private:
-	std::vector<T*> object_pools;
-	std::vector<T*> allocated; // for tracking free space 
+class ObjectPool {
+	struct Object {
+		T obj;
+		struct Object* next;
+	};
 
 public:
-	objectPool(size_t size);
-	~objectPool();
+private:
+	size_t capacity;
+	size_t allocated;
+	struct Object* pools = nullptr;
+	struct Object* freeHead = nullptr;
+
+public:
+	ObjectPool();
+	ObjectPool(size_t p_capacity);
+	~ObjectPool();
 
 	T* borrow();
-	void release(T* obj);
+	void release(T* p_obj);
+
+	size_t getCapacity() const;
+	size_t howManyAllocated() const;
+	size_t howManyFree() const;
+
+private:
 };
