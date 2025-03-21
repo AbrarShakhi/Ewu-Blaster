@@ -2,6 +2,20 @@
 local GameName = "EwuBlaster"
 local EngineName = "olcPixelGameEngine"
 
+function subcheck()
+	if(os.isdir(EngineName) == false) then
+		print("Something Wrong with project setup. " .. EngineName .. " Folder not found.")
+		print("Try to download from scrach.")
+		os.exit(1)
+	else
+        if(not os.isfile("olcPixelGameEngine.h")) then 
+			os.execute("git submodule update --init --recursive")
+		end    
+    end
+end
+
+subcheck()
+
 workspace("Ewu-Blaster")
 	architecture("x64")
 	configurations({ "Debug", "Release", "Dist" })
