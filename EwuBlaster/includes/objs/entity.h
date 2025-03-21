@@ -10,8 +10,8 @@ class Entity : public PositionRect {
 
 public:
 private:
-	olc::Sprite *sprite;
-	olc::Decal *decal;
+	olc::Sprite sprite;
+	olc::Decal decal;
 	State state;
 
 	olc::vf2d scale;
@@ -21,7 +21,12 @@ private:
 
 public:
 	Entity(const char *p_filepath);
-	~Entity();
+	Entity(const char *p_filepath, olc::vf2d p_pos);
+	Entity(const char *p_filepath, olc::vf2d p_pos, olc::vf2d p_scale);
+	Entity(const char *p_filepath, olc::vf2d p_pos, olc::vf2d p_scale, olc::vf2d p_init_velocity);
+	Entity(const char *p_filepath, olc::vf2d p_pos, olc::vf2d p_scale, olc::vf2d p_init_velocity,
+	       olc::vf2d p_init_accelation);
+	~Entity() = default;
 
 	float height() const override;
 	float width() const override;
@@ -29,8 +34,9 @@ public:
 	void setWidth(float p_width);
 	void setScaling(olc::vf2d p_new_scale);
 
-	void draw(Game *p_game) const;
 	void move(float p_delta_time);
+
+	virtual void draw(Game *p_game) const = 0;
 
 private:
 };
