@@ -1,7 +1,6 @@
 
 #include "objs/entity.h"
 
-#include "entity.h"
 #include "game.h"
 
 Entity::Entity(const char *p_filepath) : Entity(p_filepath, {0, 0}, {1, 1}, {0, 0}, {0, 0}) {

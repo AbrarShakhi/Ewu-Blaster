@@ -1,6 +1,6 @@
 #pragma once
 
-#include <functional>
+#include <array>
 
 #include "olcPixelGameEngine.h"
 #include "screens/screen.h"

@@ -9,6 +9,8 @@ private:
 	olc::vf2d pos;
 	olc::Pixel col;
 	float alphaChannel;
+	float greenChannel;
+	float blueChannel;
 	Timer t;
 
 
