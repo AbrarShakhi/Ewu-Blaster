@@ -2,6 +2,28 @@
 local GameName = "EwuBlaster"
 local EngineName = "olcPixelGameEngine"
 
+function download_gitsubmod()
+	if(os.isdir(EngineName) == false) then
+		print("Something Wrong with project setup. " .. EngineName .. " Folder not found.")
+		print("Try to download from scrach.")
+		print("You are in " .. os.getcwd())
+		print("There should be a folder called " .. EngineName)
+		os.exit(1)
+	else
+		os.chdir(EngineName)
+		res = os.isfile("olcPixelGameEngine.h")
+		os.chdir("..")
+		
+        if(not res) then
+			cmd = "git submodule update --init --recursive"
+			print("Executing '" .. cmd .. "'")
+			os.execute(cmd)
+		end
+    end
+end
+
+download_gitsubmod()
+
 workspace("Ewu-Blaster")
 	architecture("x64")
 	configurations({ "Debug", "Release", "Dist" })
@@ -49,7 +71,6 @@ workspace("Ewu-Blaster")
 	filter { "action:gmake*"}
 		buildoptions { "-std=c++20"}
 		defines { "GCC" }
-		-- buildcommands { "make -j8" }
 
 	filter { "system:linux" }
 		links { "X11", "GL", "pthread", "png" }
