@@ -1,7 +1,9 @@
 #include "screens/titlescreen.h"
 
 
-TitleScreen::TitleScreen(Game *p_game) : Screen(p_game, ScreenType::TITLE_SCREEN), btns({("PLAY"), ("EXIT")}) {
+TitleScreen::TitleScreen(Game *p_game)
+    : Screen(p_game, ScreenType::TITLE_SCREEN),
+      btns({("PLAY"), ("EXIT")}) {
 	for (auto &&b : btns) {
 		b.fitTextSize(p_game);
 	}
@@ -10,6 +12,14 @@ TitleScreen::TitleScreen(Game *p_game) : Screen(p_game, ScreenType::TITLE_SCREEN
 	olc::vf2d offset = {0, 4};
 	btns[int(BUTTON_NO::PLAY)].setBottomCenter(btn_center - offset);
 	btns[int(BUTTON_NO::EXIT)].setTopCenter(btn_center + offset);
+
+	bgSprite = new olc::Sprite("Assets\\reading.png");
+	bgDecal = new olc::Decal(bgSprite);
+}
+
+TitleScreen::~TitleScreen() {
+	delete bgSprite;
+	delete bgDecal;
 }
 
 bool TitleScreen::handleEvents() {
@@ -28,7 +38,9 @@ bool TitleScreen::updateLogics() {
 	return true;
 }
 
+
 void TitleScreen::renderFrame() {
+	callbackGame->DrawDecal(callbackGame->GetMousePos(), bgDecal, olc::vf2d(0.1f, 0.1f));
 	for (auto &&b : btns) {
 		b.draw(callbackGame);
 	}

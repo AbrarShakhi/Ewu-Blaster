@@ -44,11 +44,9 @@ void Buttons::setScaling(olc::vf2d p_new_scale) {
 
 void Buttons::draw(Game *p_game) const {
 	if (highlight) {
-		// p_game->DrawRectDecal(position, {width(), height()}, olc::RED);
-		// p_game->FillRect()
-		p_game->DrawStringDecal(position, text, olc::WHITE, scale);
+		p_game->DrawStringDecal(position, text, olc::WHITE, (scale * olc::vf2d(1.2f, 1.2f)));
 	} else {
-		p_game->DrawStringPropDecal(position, text, olc::GREY, scale);
+		p_game->DrawStringDecal(position, text, olc::GREY, scale);
 	}
 }
 
