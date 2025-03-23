@@ -7,10 +7,8 @@
 #include "screens/titlescreen.h"
 #include "utils/helper.h"
 
-Game::Game() : gameStatus(olc::OK), activeScreenType(ScreenType::SPLASH_SCREEN) {
+Game::Game() : gameStatus(olc::OK), activeScreenType(ScreenType::SPLASH_SCREEN), screens(nullptr) {
 	olc::vi2d size = getMonitorSize();
-
-	initScreens();
 
 	gameScore = 0;
 	sAppName = "Ewu Blaster";
@@ -18,9 +16,6 @@ Game::Game() : gameStatus(olc::OK), activeScreenType(ScreenType::SPLASH_SCREEN) 
 }
 
 Game::~Game() {
-	for (const auto &sc : screens) {
-		delete sc;
-	}
 }
 
 void Game::initScreens() {
@@ -32,9 +27,15 @@ void Game::initScreens() {
 }
 
 bool Game::OnUserCreate() {
+	initScreens();
 	return true;
 }
 bool Game::OnUserDestroy() {
+	for (auto &&s : screens) {
+		if (s) {
+			delete s;
+		}
+	}
 	return true;
 }
 
