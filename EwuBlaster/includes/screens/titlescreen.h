@@ -15,8 +15,9 @@ public:
 
 private:
 	std::array<Buttons, NUMBER_OF_BUTTONS> btns;
-	olc::Sprite *bgSprite;
-	olc::Decal *bgDecal;
+	olc::Sprite bgSprite;
+	olc::Decal bgDecal;
+	olc::vf2d bgScale;
 
 public:
 	TitleScreen(Game* p_game);
