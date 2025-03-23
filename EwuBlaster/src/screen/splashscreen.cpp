@@ -2,7 +2,7 @@
 
 
 SplashScreen::SplashScreen(Game *p_game) : Screen(p_game, ScreenType::SPLASH_SCREEN) {
-	text = "ABRAR INDI STUDIO";
+	text = "ABRAR STUDIO";
 
 	olc::vf2d win_size = callbackGame->GetScreenSize();
 	olc::vf2d text_size = callbackGame->GetTextSize(text);
