@@ -7,7 +7,7 @@
 #include "screens/titlescreen.h"
 #include "utils/helper.h"
 
-Game::Game() : gameStatus(olc::OK), activeScreenType(ScreenType::SPLASH_SCREEN), screens(nullptr) {
+Game::Game() : gameStatus(olc::OK), activeScreenType(ScreenType::SPLASH_SCREEN) {
 	olc::vi2d size = getMonitorSize();
 
 	gameScore = 0;

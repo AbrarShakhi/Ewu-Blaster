@@ -8,11 +8,10 @@
 
 
 enum BUTTON_NO { PLAY = 0, EXIT };
+const static int8_t NUMBER_OF_BUTTONS = 2;
 
 class TitleScreen : public Screen {
 public:
-	const static int8_t NUMBER_OF_BUTTONS = 2;
-
 private:
 	std::array<Buttons, NUMBER_OF_BUTTONS> btns;
 	olc::Sprite bgSprite;
