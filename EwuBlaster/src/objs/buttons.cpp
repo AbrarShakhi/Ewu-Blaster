@@ -40,9 +40,6 @@ void Buttons::setWidth(float p_width) {
 void Buttons::draw(Game *p_game) {
 	olc::vf2d offset(5.0f, 5.0f);
 	olc::vf2d width_heigh(width(), height());
-	olc::Pixel tint = olc::BLACK;
-	tint.a /= 3;
-	p_game->FillRectDecal(position - offset, width_heigh + (offset * 2.0f), tint);
 
 	if (highlight) {
 		olc::vf2d prev_scale = scale;
