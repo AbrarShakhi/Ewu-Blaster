@@ -2,7 +2,7 @@
 
 
 olc::vi2d getMonitorSize() {
-	return {200, 200};
+	return {300, 200};
 }
 
 inline int64_t generateSeed() {
