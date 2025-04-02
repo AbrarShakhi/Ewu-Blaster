@@ -19,10 +19,9 @@ Entity::Entity(const char *p_filepath, olc::vf2d p_pos, olc::vf2d p_scale, olc::
 
 Entity::Entity(const char *p_filepath, olc::vf2d p_pos, olc::vf2d p_scale, olc::vf2d p_init_velocity,
                olc::vf2d p_init_accelation)
-    : PositionRect(p_pos),
+    : PositionRect(p_pos, p_scale),
       sprite(p_filepath),
       decal(&sprite),
-      scale(p_scale),
       velocity(p_init_velocity),
       acceleration(p_init_accelation) {
 	state = State::INACTIVE;
@@ -46,9 +45,6 @@ void Entity::setHeight(float p_height) {
 }
 void Entity::setWidth(float p_width) {
 	scale.x = p_width / (decal.sprite->width);
-}
-void Entity::setScaling(olc::vf2d p_new_scale) {
-	scale = p_new_scale;
 }
 
 void Entity::setEntityState(State p_state) {

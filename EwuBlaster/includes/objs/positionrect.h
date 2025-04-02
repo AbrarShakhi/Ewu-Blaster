@@ -6,14 +6,19 @@ class PositionRect {
 public:
 protected:
 	olc::vf2d position;
+	olc::vf2d scale;
 
 public:
 	PositionRect();
 	PositionRect(olc::vf2d p_pos);
+	PositionRect(olc::vf2d p_pos, olc::vf2d p_scale);
 	~PositionRect() = default;
 
 	virtual float height() const = 0;
 	virtual float width() const = 0;
+	virtual void setHeight(float p_height) = 0;
+	virtual void setWidth(float p_width) = 0;
+	void setScalingLockCenter(olc::vf2d p_new_scale);
 
 	olc::vf2d topLeft() const;
 	olc::vf2d topCenter() const;

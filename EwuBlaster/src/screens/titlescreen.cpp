@@ -10,15 +10,21 @@ TitleScreen::TitleScreen(Game *p_game)
 	for (auto &&b : btns) {
 		b.fitTextSize(p_game);
 	}
-	
-	olc::vf2d win_size = callbackGame->GetScreenSize();
+
+	olc::vf2d win_size = {float(callbackGame->ScreenWidth()), float(callbackGame->ScreenHeight())};
+
 	olc::vf2d btn_pos = (win_size / 2.0f);
 	olc::vf2d offset = {0, 5};
 	btns[int(BUTTON_NO::PLAY)].setBottomCenter(btn_pos - offset);
 	btns[int(BUTTON_NO::EXIT)].setTopCenter(btn_pos + offset);
 
-	bgScale.x = win_size.x / (bgDecal.sprite->width);
-	bgScale.y = win_size.y / (bgDecal.sprite->height);
+	float sc;
+	sc = win_size.x / (bgDecal.sprite->width);
+	if (sc * (bgDecal.sprite->height) < win_size.y) {
+		sc = win_size.y / (bgDecal.sprite->height);
+	}
+
+	bgScale = {sc, sc};
 }
 
 TitleScreen::~TitleScreen() {
@@ -42,7 +48,9 @@ bool TitleScreen::updateLogics() {
 
 
 void TitleScreen::renderFrame() {
-	callbackGame->DrawDecal({0, 0}, &bgDecal, bgScale);
+	olc::Pixel tint = olc::WHITE;
+	tint.a /= 3;
+	callbackGame->DrawDecal({0, 0}, &bgDecal, bgScale, tint);
 	for (auto &&b : btns) {
 		b.draw(callbackGame);
 	}

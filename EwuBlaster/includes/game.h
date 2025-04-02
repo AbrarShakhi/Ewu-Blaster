@@ -13,15 +13,11 @@ public:
 	std::array<Screen*, NUM_OF_SCREENS> screens;
 
 private:
-	uint64_t gameScore;
-
 public:
 	Game();
 	~Game();
 
-	inline uint64_t getGameScore() {
-		return gameScore;
-	}
+	uint64_t getGameScore() const;
 
 private:
 	bool OnUserCreate() override;
@@ -29,8 +25,4 @@ private:
 	bool OnUserDestroy() override;
 
 	void initScreens();
-
-	inline void setGameScore(uint64_t p_score) {
-		gameScore = p_score;
-	}
 };

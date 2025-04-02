@@ -11,7 +11,6 @@ private:
 	const char *text;
 	bool highlight;
 	bool selected;
-	olc::vf2d scale;
 	olc::vf2d textSize;
 
 public:
@@ -24,10 +23,9 @@ public:
 
 	float height() const override;
 	float width() const override;
-	void setHeight(float p_height);
-	void setWidth(float p_width);
-	void setScaling(olc::vf2d p_new_scale);
+	void setHeight(float p_height) override;
+	void setWidth(float p_width) override;
 
-	void draw(Game *p_game) const;
+	void draw(Game *p_game);
 	void handle(Game *p_game);
 };
