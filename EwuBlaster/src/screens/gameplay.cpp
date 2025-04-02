@@ -2,7 +2,7 @@
 
 #include "game.h"
 
-GamePlay::GamePlay(Game* p_game) : Screen(p_game, ScreenType::GAMEPLAY), player("Assets/player/1.png", {0, 0}) {
+GamePlay::GamePlay(Game* p_game) : Screen(p_game, ScreenType::GAMEPLAY), player("Assets/player/shovon.png", {0, 0}) {
 	gameScore = 0;
 	isGameOver = false;
 	isGamePaused = false;
@@ -11,6 +11,7 @@ GamePlay::GamePlay(Game* p_game) : Screen(p_game, ScreenType::GAMEPLAY), player(
 	player.setCenter({p_game->ScreenWidth() / 2.0f, p_game->ScreenHeight() / 2.0f});
 	// player.setScalingLockCenter({})
 	player.setEntityState(Entity::ALIVE);
+	player.setScalingLockCenter({0.04f, 0.04f});
 }
 
 bool GamePlay::handleEvents() {
