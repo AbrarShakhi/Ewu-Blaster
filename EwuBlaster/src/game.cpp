@@ -10,12 +10,19 @@
 Game::Game() : gameStatus(olc::OK), activeScreenType(ScreenType::SPLASH_SCREEN) {
 	olc::vi2d size = getMonitorSize();
 
-	gameScore = 0;
 	sAppName = "Ewu Blaster";
 	gameStatus = Construct(size.x, size.y, 4, 4, false, true);
 }
 
 Game::~Game() {
+}
+
+uint64_t Game::getGameScore() const {
+	if (screens[int(ScreenType::GAMEPLAY)]) {
+		// conert Screen* to GamePlay*
+		return (static_cast<GamePlay *>(screens[int(ScreenType::GAMEPLAY)]))->getGameScore();
+	}
+	return 0;
 }
 
 void Game::initScreens() {
@@ -28,6 +35,7 @@ void Game::initScreens() {
 
 bool Game::OnUserCreate() {
 	initScreens();
+
 	return true;
 }
 bool Game::OnUserDestroy() {
@@ -43,5 +51,6 @@ bool Game::OnUserUpdate(float p_delta_time) {
 	if (screens[int(activeScreenType)]) {
 		return screens[int(activeScreenType)]->loopFrame(p_delta_time);
 	}
+	gameStatus = olc::FAIL;
 	return false;
 }

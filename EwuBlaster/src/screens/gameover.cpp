@@ -22,7 +22,7 @@ bool GameOver::updateLogics() {
 	scoreText = s.str();
 
 	scoreTextScale = {2, 2};
-	olc::vf2d win_size = callbackGame->GetScreenSize();
+	olc::vf2d win_size = {float(callbackGame->ScreenWidth()), float(callbackGame->ScreenHeight())};
 	olc::vf2d text_size = callbackGame->GetTextSize(scoreText) * scoreTextScale;
 
 	scoreTextPos = win_size / 2.0f - (text_size / 2.0f);

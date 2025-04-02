@@ -27,7 +27,7 @@ public:
 	       olc::vf2d p_init_accelation);
 	~Entity() = default;
 
-	virtual void draw(Game *p_game) const = 0;
+	virtual void draw(Game *p_game) = 0;
 
 	void move(float p_delta_time);
 

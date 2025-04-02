@@ -11,7 +11,8 @@ TitleScreen::TitleScreen(Game *p_game)
 		b.fitTextSize(p_game);
 	}
 
-	olc::vf2d win_size = callbackGame->GetScreenSize();
+	olc::vf2d win_size = {float(callbackGame->ScreenWidth()), float(callbackGame->ScreenHeight())};
+
 	olc::vf2d btn_pos = (win_size / 2.0f);
 	olc::vf2d offset = {0, 5};
 	btns[int(BUTTON_NO::PLAY)].setBottomCenter(btn_pos - offset);

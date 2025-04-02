@@ -22,7 +22,35 @@ function download_gitsubmod()
     end
 end
 
+function copy_assets()
+	if(os.isdir("Assets") == false) then
+		print("Assets folder not found. Creating one.")
+		os.mkdir("Assets")
+	end
+	if(os.isdir("Assets/") == false) then
+		print("Something Wrong with project setup. Assets Folder not found.")
+		print("Try to download from scrach.")
+		print("You are in " .. os.getcwd())
+		print("There should be a folder called Assets")
+		os.exit(1)
+	else
+		if(os.isdir(".out") == false) then
+			print("Creating output directory.")
+			os.mkdir(".out")
+		elseif(os.isdir(".out/Assets") == true) then
+			print("deleting Assets folder to output directory.")
+			os.rmdir(".out/Assets")
+		end
+		print("Copying Assets folder to output directory.")
+		os.mkdir(".out/Assets")
+		os.execute("cp -r Assets/* .out/Assets/")
+		-- os.execute("xcopy /E /I Assets .out/Assets")
+		print("Assets folder copied to output directory.")
+	end
+end
+
 download_gitsubmod()
+copy_assets()
 
 workspace("Ewu-Blaster")
 	architecture("x64")
